@@ -1,19 +1,17 @@
-package ru.kata.spring.boot_security.demo.model;
+package ru.kata.spring.boot_security.demo.models;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
 public class Role implements GrantedAuthority {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,12 +19,15 @@ public class Role implements GrantedAuthority {
     @Column(name = "role")
     private String role;
 
-    public Role(String role) {
-        this.role = role;
+    public Role() {
     }
 
+    public Role(Long id) {
+        this.id = id;
+    }
 
-    public Role() {
+    public Role(String role) {
+        this.role = role;
     }
 
     public Long getId() {
@@ -41,12 +42,12 @@ public class Role implements GrantedAuthority {
         return role;
     }
 
-    public void setName(String role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
     @Override
     public String getAuthority() {
-        return role;
+        return getRole();
     }
 }
