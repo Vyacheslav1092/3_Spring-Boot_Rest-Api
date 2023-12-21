@@ -38,10 +38,10 @@ public class WebSecurityConfig {
                                 .permitAll()
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/index",
-                                         "/login")
-                                                    .permitAll()
-                        .requestMatchers("/").hasAnyRole("ADMIN", "USER").anyRequest().authenticated()
+                        .requestMatchers("/index", "/login").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/").hasAnyRole("ADMIN", "USER")
+                        .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf
                         .disable())
